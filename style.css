@@ -5,8 +5,8 @@ body {
 }
 
 header {
-    background: #333;
-    color: white;
+    background: #7eff75;
+    color: rgb(0, 0, 0);
     padding: 15px;
     text-align: center;
 }
@@ -40,4 +40,42 @@ footer {
     text-align: center;
     padding: 10px;
     margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    nav a {
+        margin: 0 10px;
+    }
+
+    header, footer {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px;
+    }
+
+    nav {
+        padding: 8px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .post {
+        padding: 10px 0;
+    }
+
+    footer {
+        padding: 8px;
+    }
 }
