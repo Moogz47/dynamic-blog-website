@@ -1,0 +1,40 @@
+1. Project Overview
+
+A simple blog website where users can:
+
+View a list of blog posts on the homepage.
+Create new blog posts.
+Edit or delete existing posts.
+Manage project development using Git and GitHub with version control workflows.
+
+2. Features & Functionality
+
+Homepage displaying a list of blog posts
+Blog post creation form
+Edit & delete functionality for blog posts
+Basic styling
+
+3. Project Workflow & GitHub Strategy
+
+Main Branches
+main: Production-ready code
+dev: Active development branch
+
+Feature Branch Workflow:
+feature/homepage
+feature/create-post
+feature/edit-delete
+feature/database
+
+Version Control Process
+Clone repo and create a feature branch:
+git checkout -b feature/<feature-name>
+
+Work on feature and commit changes:
+git commit -m "Added feature"
+
+Push changes and create a pull request:
+git push origin feature/<feature-name>
+
+Code review and merge into dev
+Merge dev into main for deployment
