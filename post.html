@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    h1 {
+      color: #333;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+    }
+    .content {
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+    .error {
+      color: red;
+    }
+    .edit-form {
+      display: none;
+      margin-top: 1rem;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 0.5rem;
+      padding: 0.7rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="post-title"></h1>
+  <img id="post-image" style="display: none;">
+  <p class="content" id="post-content"></p>
+  <p id="error-message" class="error"></p>
+
+  <button id="edit-button">Edit Post</button>
+
+
+  <div class="edit-form" id="edit-form">
+    <input type="text" id="edit-title">
+    <textarea id="edit-content" rows="5"></textarea>
+    <button id="save-button">Save Changes</button>
+    <button id="cancel-button">Cancel</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('id');
+
+      const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+      const post = posts.find(p => p.id === postId);
+
+      if (post) {
+        document.getElementById('post-title').textContent = post.title;
+        document.getElementById('post-content').textContent = post.content;
+        document.getElementById('edit-title').value = post.title;
+        document.getElementById('edit-content').value = post.content;
+
+        if (post.image) {
+          const postImage = document.getElementById('post-image');
+          postImage.src = post.image;
+          postImage.style.display = 'block';
+        }
+      } else {
+        document.getElementById('error-message').textContent = 'Post not found.';
+        document.getElementById('edit-button').style.display = 'none';
+      }
+
+      document.getElementById('edit-button').addEventListener('click', function () {
+        document.getElementById('edit-form').style.display = 'block';
+      });
+
+      document.getElementById('save-button').addEventListener('click', function () {
+        const newTitle = document.getElementById('edit-title').value.trim();
+        const newContent = document.getElementById('edit-content').value.trim();
+
+        if (!newTitle || !newContent) {
+          alert('Title and content cannot be empty.');
+          return;
+        }
+
+        post.title = newTitle;
+        post.content = newContent;
+
+        localStorage.setItem('blogPosts', JSON.stringify(posts));
+
+        document.getElementById('post-title').textContent = newTitle;
+        document.getElementById('post-content').textContent = newContent;
+        document.getElementById('edit-form').style.display = 'none';
+
+        alert('Post updated successfully!');
+      });
+
+      document.getElementById('cancel-button').addEventListener('click', function () {
+        document.getElementById('edit-form').style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
